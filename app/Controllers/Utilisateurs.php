@@ -20,7 +20,8 @@ class Utilisateurs extends BaseController
         if (!$this->validate([
             'nom' => 'required|min_length[3]|max_length[255]',
             'prenom' => 'required|min_length[3]|max_length[255]',
-            'email' => 'required|min_length[3]|max_length[255]'
+            'email' => 'required|min_length[3]|max_length[255]',
+            'checkaccept' => 'required'
         ])) {
             return $this->new();
         }
