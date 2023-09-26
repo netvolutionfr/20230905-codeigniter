@@ -22,7 +22,7 @@ class Utilisateurs extends BaseController
             'prenom' => 'required|min_length[3]|max_length[255]',
             'email' => 'required|min_length[3]|max_length[255]'
         ])) {
-            return "Erreurs dans le formulaire";
+            return $this->new();
         }
 
         $post = $this->validator->getValidated();
