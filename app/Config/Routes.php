@@ -4,7 +4,7 @@ use CodeIgniter\Router\RouteCollection;
 use App\Controllers\News;
 use App\Controllers\Pages;
 use App\Controllers\Home;
-use App\Controllers\Utilisateur;
+use App\Controllers\Utilisateurs;
 
 /**
  * @var RouteCollection $routes
@@ -18,7 +18,8 @@ $routes->get('news/(:segment)', [News::class, 'view']);
 
 $routes->get('home', [Home::class, 'hello']);
 
-$routes->get('createutilisateur', [Utilisateur::class, 'create']);
+$routes->get('utilisateurs/new', [Utilisateurs::class, 'new']);
+$routes->post('utilisateurs', [Utilisateurs::class, 'create']);
 
 $routes->get('pages', [Pages::class, 'index']);
 $routes->get('(:segment)', [Pages::class, 'view']);
