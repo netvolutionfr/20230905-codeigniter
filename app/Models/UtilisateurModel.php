@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class UtilisateurModel extends Model
 {
     protected $table = 'utilisateurs';
-    protected $allowedFields = ['nom', 'prenom', 'email', 'acceptcgu'];
+    protected $allowedFields = ['nom', 'prenom', 'email', 'acceptcgu', 'iban'];
 
     public function getUtilisateur($id) {
         // Equivalent SQL :
@@ -15,7 +15,7 @@ class UtilisateurModel extends Model
         return $this->asArray()->where(['id' => $id])->first();
     }
 
-    public function create($nom, $prenom, $email) {
+    public function create($nom, $prenom, $email, $iban = '') {
         $model = model(UtilisateurModel::class);
 
         $now = date('Y-m-d H:i:s');
@@ -24,7 +24,8 @@ class UtilisateurModel extends Model
             'nom' => $nom,
             'prenom' => $prenom,
             'email' => $email,
-            'acceptcgu' => $now
+            'acceptcgu' => $now,
+            'iban' => $iban
         );
 
         $model->save($data);

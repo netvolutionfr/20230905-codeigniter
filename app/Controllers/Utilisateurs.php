@@ -30,7 +30,7 @@ class Utilisateurs extends BaseController
 
         $model = model(UtilisateurModel::class);
 
-        $model->create($post['nom'], $post['prenom'], $post['email']);
+        $model->create($post['nom'], $post['prenom'], $post['email'], $post['iban']);
 
         return "Utilisateur créé";
     }
