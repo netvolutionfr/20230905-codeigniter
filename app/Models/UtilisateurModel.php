@@ -8,6 +8,14 @@ class UtilisateurModel extends Model
 {
     protected $table = 'utilisateurs';
     protected $allowedFields = ['nom', 'prenom', 'email', 'acceptcgu', 'iban'];
+    private $key = '';
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->key = getenv('encryption.key');
+    }
 
     public function getUtilisateur($id) {
         // Equivalent SQL :
@@ -16,7 +24,7 @@ class UtilisateurModel extends Model
 
         if (strlen($utilisateur['iban'])) {
             $config = new \Config\Encryption();
-            $config->key = 'Z-W4@Un^|WWL2{ _J*LH8uT<x0R4O9&n,w8u.k|JPr!Ex3I3FRcJ[_Y><X`R(5FZ';
+            $config->key = $this->key;
             $encrypter = \Config\Services::encrypter($config);
             $iban = $encrypter->decrypt(hex2bin($utilisateur['iban']));
             $utilisateur['iban'] = $iban;
@@ -32,7 +40,7 @@ class UtilisateurModel extends Model
         $now = date('Y-m-d H:i:s');
 
         $config = new \Config\Encryption();
-        $config->key = 'Z-W4@Un^|WWL2{ _J*LH8uT<x0R4O9&n,w8u.k|JPr!Ex3I3FRcJ[_Y><X`R(5FZ';
+        $config->key = $this->key;
         $encrypter = \Config\Services::encrypter($config);
         $cipheriban = bin2hex($encrypter->encrypt($iban));
 
