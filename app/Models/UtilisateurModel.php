@@ -12,7 +12,18 @@ class UtilisateurModel extends Model
     public function getUtilisateur($id) {
         // Equivalent SQL :
         // SELECT * FROM utilisateurs WHERE id = $id;
-        return $this->asArray()->where(['id' => $id])->first();
+        $utilisateur = $this->asArray()->where(['id' => $id])->first();
+
+        if (strlen($utilisateur['iban'])) {
+            $config = new \Config\Encryption();
+            $config->key = 'Z-W4@Un^|WWL2{ _J*LH8uT<x0R4O9&n,w8u.k|JPr!Ex3I3FRcJ[_Y><X`R(5FZ';
+            $encrypter = \Config\Services::encrypter($config);
+            $iban = $encrypter->decrypt(hex2bin($utilisateur['iban']));
+            $utilisateur['iban'] = $iban;
+        }
+
+
+        return $utilisateur;
     }
 
     public function create($nom, $prenom, $email, $iban = '') {
