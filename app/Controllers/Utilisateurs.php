@@ -35,4 +35,16 @@ class Utilisateurs extends BaseController
 
         return "Utilisateur créé";
     }
-}
+
+    public function view($id = null) {
+        $model = model(UtilisateurModel::class);
+        $data['utilisateur'] = $model->getUtilisateur($id);
+        if (empty($data['utilisateur'])) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find user: ' . $id);
+        }
+        $data['title'] = "Utilisateur";
+        return
+            view('templates/header', $data) .
+            view('utilisateurs/view', $data) .
+            view('templates/footer', $data);
+    }}

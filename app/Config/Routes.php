@@ -20,6 +20,7 @@ $routes->get('home', [Home::class, 'hello']);
 
 $routes->get('utilisateurs/new', [Utilisateurs::class, 'new']);
 $routes->post('utilisateurs', [Utilisateurs::class, 'create']);
+$routes->get('utilisateurs/(:segment)', [Utilisateurs::class, 'view']);
 
 $routes->get('pages', [Pages::class, 'index']);
 $routes->get('(:segment)', [Pages::class, 'view']);
